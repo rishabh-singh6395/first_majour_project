@@ -1,0 +1,46 @@
+.navbar{
+    background-color: white;
+}
+
+.navbar-brand i{
+    color: #ff5a60;
+}
+
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+.f-info-links{
+    width: 100%;
+}
+.f-info-socials{
+    width: 100%;
+    font-size: 1.5rem;
+}
+.f-info-socials i{
+    margin-right: 10px;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+.f-info {
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+
+.card{
+    border: none;
+    margin-bottom: 2rem;
+}
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+
+}
