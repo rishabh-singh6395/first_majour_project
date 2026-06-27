@@ -1,21 +1,41 @@
 <% layout("/layouts/boilerplate") %>
 
 <body>
+<div class = "col-md-8 offset-md-2">
     <h3>Create A New Listing</h3>
     <form method="post" action="/listings">
-        <input name="listing[title]" placeholder="enter title" type="text">
+        <div>
+            <label for="listing[title]" class="form-label">Title:</label>
+            <input name="listing[title]" placeholder="enter title" type="text" class="form-control"> 
+       
+        </div>
+        
+        <div>
+            <label for="listing[description]" class="form-label">Description:</label>
+             <textarea name="listing[description]" placeholder="enter description" type="text" class="form-control"></textarea>
+        
+        </div>
+       <div>
+            <label for="listing[image]" class="form-label">Image URL:</label>
+        <input name="listing[image]" placeholder="enter image url" type="text" class="form-control">
+        
+       </div>
+       <div>
+            <label for="listing[price]" class="form-label">Price:</label>
+        <input name="listing[price]" placeholder="enter price" type="number" class="form-control">
+        </div>
+        <div>
+            <label for="listing[country]" class="form-label">Country:</label>
+            <input name="listing[country]" placeholder="enter country" type="text" class="form-control">
+        </div>
+        <div>
+            <label for="listing[location]" class="form-label">Location:</label>
+            <input name="listing[location]" placeholder="enter location" type="text" class="form-control">
+        </div>
         <br/><br/>
-        <textarea name="listing[description]" placeholder="enter description" type="text"></textarea>
-        <br/><br/>
-        <input name="listing[image]" placeholder="enter image url" type="text">
-        <br/><br/>
-        <input name="listing[price]" placeholder="enter price" type="number">
-        <br/><br/>
-        <input name="listing[country]" placeholder="enter country" type="text">
-        <br/><br/>
-        <input name="listing[location]" placeholder="enter location" type="text">
-        <br/><br/>
-        <button>Add</button>
+        <button class="ad-btn">Add</button>
     </form>
+
+</div>
     
 </body>

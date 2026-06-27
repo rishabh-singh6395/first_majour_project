@@ -104,10 +104,6 @@ app.post("/listings",async(req,res)=>{
 //edit rout
 app.get("/listings/:id/edit" , async(req,res) =>{
     let {id} = req.params;
-    id = id && id.trim ? id.trim() : id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).send('Invalid listing id');
-    }
     const listing = await Listing.findById(id) ;
     // render the edit view inside views/listings
     res.render("listings/edit", { listing });
@@ -117,10 +113,6 @@ app.get("/listings/:id/edit" , async(req,res) =>{
 //update rout 
 app.put("/listings/:id" , async(req,res)=>{
     let {id} = req.params ;
-    id = id && id.trim ? id.trim() : id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).send('Invalid listing id');
-    }
     // update the listing with data from the form (assumes form fields named listing[...])
     await Listing.findByIdAndUpdate(id, req.body.listing, { runValidators: true });
     res.redirect(`/listings`);
@@ -128,11 +120,7 @@ app.put("/listings/:id" , async(req,res)=>{
 
 //delete rout 
 app.delete("/listings/:id" , async(req,res) => {
-    let {id} = req.params ;
-    id = id && id.trim ? id.trim() : id;   
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).send('Invalid listing id');
-    }
+    let {id} = req.params ;   
     let deletedListing = await Listing.findByIdAndDelete(id) ;
     console.log(deletedListing);
     res.redirect("/listings");
