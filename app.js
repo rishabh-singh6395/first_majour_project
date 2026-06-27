@@ -56,6 +56,7 @@ app.get("/", (req, res)=>{
 //     res.send("successfull testing");
 // });
 
+
 //index rout
 app.get("/listings",async (req,res)=>{
     const allListings = await Listing.find({});
