@@ -5,6 +5,7 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require('method-override');
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapAsync.js");
 
 
 
@@ -91,15 +92,17 @@ app.get("/listings/:id",async(req,res)=>{
 
 
 //create rout
-app.post("/listings",async(req,res)=>{
+app.post("/listings", wrapAsync(async (req, res ,next) => {
 
-    const newListing = new Listing(req.body.listing);
-    await newListing.save() ;
-    res.redirect("/listings");
+        const newListing = new Listing(req.body.listing);
+        await newListing.save();
+        res.redirect("/listings");
+    
+}));
 
-});
-
-
+app.use((err,req,res,next ) => {
+    res.send("something went wrong");
+})
 
 //edit rout
 app.get("/listings/:id/edit" , async(req,res) =>{
