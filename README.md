@@ -137,7 +137,7 @@ This project focuses on:
 
 ---
 
-# 🔮 Future Enhancements
+# 🔮 Future Enhancements .
 
 Planned improvements:
 
