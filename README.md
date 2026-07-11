@@ -150,7 +150,7 @@ Planned improvements:
 
 ---
 
-# 👨‍💻 Author
+# 👨‍💻 Author 
 
 **Rishabh Singh**
 
