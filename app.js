@@ -6,26 +6,28 @@ const path = require("path");
 const methodOverride = require('method-override');
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
-const { listingSchema } = require("./Schema.js");
-
-
+const { listingSchema } = require("./schema.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
-async function main() {
-  await mongoose.connect(MONGO_URL) ;
+async function startServer() {
+  try {
+    await mongoose.connect(MONGO_URL, {
+      serverSelectionTimeoutMS: 10000,
+    });
+    console.log("connected");
+
+    app.listen(8080, () => {
+      console.log("server is running on port 8080");
+    });
+  } catch (err) {
+    console.log("error", err);
+    process.exit(1);
+  }
 }
 
-main().then(() => {
-        console.log("connected");
-    })
-    .catch((err)=>{
-        console.log("error", err);
-    });
+startServer();
 
-     
-
-     
 app.set("view engine" , "ejs");
 app.set("views" ,path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));

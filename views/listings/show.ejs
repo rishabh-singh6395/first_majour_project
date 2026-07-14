@@ -16,6 +16,22 @@
     </ul>
 </div>
 </div>
+
+<hr/>
+<div class="col-8 offset-3">
+    <h4>Reviews</h4>
+    <form>
+        <div>
+            <label for="review">Add a review</label>
+            <input type="range" min="1" max="5" name="review[rating]" id="rating" >
+        </div>
+        <div>
+            <label for="comment" >Comments</label> 
+            <textarea  rows="10" cols="30" name="review[comment]" id="comment" ></textarea>
+        </div>
+        <button>Submit</button>
+    </form>
+</div>
  
    
     <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark">Edit </a>
