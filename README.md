@@ -148,7 +148,7 @@ Planned improvements:
 * User profile dashboard
 * Recommendation system
 
----
+--------
 
 # 👨‍💻 Author 
 
