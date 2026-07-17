@@ -6,7 +6,9 @@ const path = require("path");
 const methodOverride = require('method-override');
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
-const { listingSchema } = require("./schema.js");
+const { listingSchema , reviewSchema} = require("./schema.js");
+const Review = require("./models/review.js");
+
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -45,6 +47,16 @@ app.get("/", (req, res)=>{
 
 const validateListing = (req,res,next) => {
     const {error} = listingSchema.validate(req.body);
+    if(error){
+        throw new Error( 400 , error) ;
+    }
+    else{
+        next();
+    }
+}
+
+const validateReview = (req,res,next) => {
+    const {error} = reviewSchema.validate(req.body);
     if(error){
         throw new Error( 400 , error) ;
     }
@@ -96,7 +108,8 @@ app.get("/listings/:id",wrapAsync(async(req,res,next)=>{
         err.status = 400;
         return next(err);
     }
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
+    console.log(listing.reviews);
     if (!listing) {
         const err = new Error('Listing not found');
         err.status = 404;
@@ -105,8 +118,6 @@ app.get("/listings/:id",wrapAsync(async(req,res,next)=>{
     // folder is 'listings', so render the 'listings/show' view
     res.render("listings/show", { listing });
 }));
-
-
 
 
 
@@ -145,6 +156,27 @@ app.delete("/listings/:id" , wrapAsync(async(req,res) => {
     res.redirect("/listings");
 }));
 
+
+
+//review rout
+app.post("/listings/:id/reviews" , validateReview , wrapAsync(async(req,res)=>{
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.review);
+    
+
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+
+res.redirect(`/listings/${listing._id}`);
+
+}));
+
+
+
+
+
+
 // 404 handler - for undefined routes
 app.use((req, res, next) => {
     const err = new Error('Page not found');
@@ -158,8 +190,4 @@ app.use((err,req,res,next ) => {
     res.status(status).render("error.ejs", { message });
 });
 
-// start server after routes are defined
-app.listen(8080, ()=>{
-    console.log("server is running on port 8080");
-});
 
